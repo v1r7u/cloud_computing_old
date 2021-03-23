@@ -13,6 +13,13 @@ provider "azurerm" {
   features {}
 }
 
+module "observability" {
+  source = "./observability"
+
+  prefix   = var.prefix
+  location = var.location
+}
+
 module "vm_psql_net" {
   source = "./vm_psql"
 
@@ -26,4 +33,6 @@ module "vm_psql_net" {
 
   vm_size           = var.vm_size
   ssh_pub_key_path  = var.ssh_pub_key_path
+
+  log_analytics_workspace_id = module.observability.log_analytics_workspace_id
 }

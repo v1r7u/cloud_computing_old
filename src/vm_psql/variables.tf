@@ -14,6 +14,10 @@ variable "psql_password" {
   description = "PSQL admin password"
 }
 
+variable "log_analytics_workspace_id" {
+  description = "Log Analytics Workspace Identifier"
+}
+
 variable "psql_storage_size" {
   description = "Storage size in Mb"
   default     = 102400

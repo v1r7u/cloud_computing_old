@@ -26,6 +26,31 @@ resource "azurerm_postgresql_firewall_rule" "psql_public_fw_rule" {
   name                = "vm-public"
   resource_group_name = azurerm_resource_group.main.name
   server_name         = azurerm_postgresql_server.public.name
-  start_ip_address    = azurerm_public_ip.vm_public_pip.id
-  end_ip_address      = azurerm_public_ip.vm_public_pip.id
+  start_ip_address    = azurerm_public_ip.vm_public_pip.ip_address
+  end_ip_address      = azurerm_public_ip.vm_public_pip.ip_address
+}
+
+resource "azurerm_monitor_diagnostic_setting" "psql_public_logs" {
+  name = "logs"
+
+  target_resource_id         = azurerm_postgresql_server.public.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  log {
+    category = "PostgreSQLLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
 }

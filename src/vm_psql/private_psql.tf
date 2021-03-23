@@ -37,8 +37,33 @@ resource "azurerm_private_endpoint" "psql" {
 }
 
 resource "azurerm_postgresql_virtual_network_rule" "psql_private_fw_rule" {
-  name                                 = "postgresql-vnet-rule"
-  resource_group_name                  = azurerm_resource_group.main.name
-  server_name                          = azurerm_postgresql_server.private.name
-  subnet_id                            = azurerm_subnet.vms_private.id
+  name                = "postgresql-vnet-rule"
+  resource_group_name = azurerm_resource_group.main.name
+  server_name         = azurerm_postgresql_server.private.name
+  subnet_id           = azurerm_subnet.vms_private.id
+}
+
+resource "azurerm_monitor_diagnostic_setting" "psql_private_logs" {
+  name = "logs"
+
+  target_resource_id         = azurerm_postgresql_server.private.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  log {
+    category = "PostgreSQLLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
 }
