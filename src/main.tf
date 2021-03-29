@@ -1,5 +1,5 @@
 terraform {
-  required_version = "0.14.8"
+  required_version = "0.14.9"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -15,6 +15,13 @@ provider "azurerm" {
 
 module "observability" {
   source = "./observability"
+
+  prefix   = var.prefix
+  location = var.location
+}
+
+module "storage_account" {
+  source = "./storage_account"
 
   prefix   = var.prefix
   location = var.location
