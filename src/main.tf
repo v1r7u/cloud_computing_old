@@ -27,6 +27,13 @@ module "storage_account" {
   location = var.location
 }
 
+module "faas_eh_sa" {
+  source = "./faas_eh_sa"
+
+  prefix   = var.prefix
+  location = var.location
+}
+
 module "vm_psql_net" {
   source = "./vm_psql"
 
