@@ -26,3 +26,11 @@ RUN AZ_REPO=$(lsb_release -cs) && \
     tee /etc/apt/sources.list.d/azure-cli.list
 RUN apt-get -y update
 RUN apt-get -y install azure-cli
+
+### AZ FUNC
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" \
+    > /etc/apt/sources.list.d/dotnetdev.list
+RUN apt-get -y update
+RUN apt-get -y install \
+    python3-venv \
+    azure-functions-core-tools-3

@@ -6,6 +6,7 @@
       "terminal.integrated.shell.linux": "/bin/bash"
   },
   "extensions": [
-      "hashicorp.terraform"
-  ]
+    "hashicorp.terraform",
+    "ms-python.python"
+]
 }
