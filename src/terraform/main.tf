@@ -15,7 +15,6 @@ provider "azurerm" {
 
 module "observability" {
   source = "./observability"
-
   prefix   = var.prefix
   location = var.location
 }
