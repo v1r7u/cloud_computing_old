@@ -22,12 +22,3 @@ resource "azurerm_eventhub" "eh_raw" {
   partition_count   = 3
   message_retention = 1
 }
-
-resource "azurerm_eventhub" "eh_normalized" {
-  name                = "iot_events_normalized"
-  namespace_name      = azurerm_eventhub_namespace.ehn.name
-  resource_group_name = azurerm_resource_group.faas_eh_sa.name
-
-  partition_count   = 3
-  message_retention = 1
-}
