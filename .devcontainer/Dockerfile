@@ -34,3 +34,7 @@ RUN apt-get -y update
 RUN apt-get -y install \
     python3-venv \
     azure-functions-core-tools-3
+
+# Without this env variable, `func` fails to run any command.
+# More details: https://github.com/Azure/azure-functions-core-tools/issues/2554
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
