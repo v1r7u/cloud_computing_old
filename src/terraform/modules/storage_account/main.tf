@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "sa" {
   location = var.location
 }
 
-resource "azurerm_log_analytics_workspace" "sample_sa" {
+resource "azurerm_storage_account" "sample_sa" {
   name                = "${var.prefix}-sa"
   location            = azurerm_resource_group.sa.location
   resource_group_name = azurerm_resource_group.sa.name

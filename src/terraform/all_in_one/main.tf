@@ -14,27 +14,27 @@ provider "azurerm" {
 }
 
 module "observability" {
-  source = "./observability"
+  source = "../modules/observability"
   prefix   = var.prefix
   location = var.location
 }
 
 module "storage_account" {
-  source = "./storage_account"
+  source = "../modules/storage_account"
 
   prefix   = var.prefix
   location = var.location
 }
 
 module "faas_eh_sa" {
-  source = "./faas_eh_sa"
+  source = "../modules/faas_eh_sa"
 
   prefix   = var.prefix
   location = var.location
 }
 
 module "vm_psql_net" {
-  source = "./vm_psql"
+  source = "../modules/vm_psql"
 
   prefix   = var.prefix
   location = var.location
