@@ -30,7 +30,7 @@ The goal: show main terraform commands and how to use templates from this reposi
     3. Create `terraform.tfvars` file. This file will contain your unique properties for the rest of terraform configuration, for example:
 
     ```
-    cat >> terraform.tfvars <<'EOF'
+    cat > terraform.tfvars <<'EOF'
     subscription_id = "00000000-0000-0000-0000-000000000000"
     prefix   = "igork"
     location = "westeurope"

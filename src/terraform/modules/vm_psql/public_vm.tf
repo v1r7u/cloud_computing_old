@@ -4,13 +4,15 @@ resource "azurerm_linux_virtual_machine" "public" {
   location                        = azurerm_resource_group.main.location
   size                            = var.vm_size
   admin_username                  = "adminuser"
+  disable_password_authentication = true
+
   network_interface_ids = [
     azurerm_network_interface.vm_public.id
   ]
 
   admin_ssh_key {
-    username = "adminuser"
-    public_key = file(var.ssh_pub_key_path)
+    username   = "adminuser"
+    public_key = tls_private_key.vm_admin.public_key_openssh
   }
 
   source_image_reference {

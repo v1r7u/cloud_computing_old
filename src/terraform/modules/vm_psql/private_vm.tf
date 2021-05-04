@@ -9,8 +9,8 @@ resource "azurerm_linux_virtual_machine" "private" {
   ]
 
   admin_ssh_key {
-    username = "adminuser"
-    public_key = file(var.ssh_pub_key_path)
+    username   = "adminuser"
+    public_key = tls_private_key.vm_admin.public_key_openssh
   }
 
   source_image_reference {
