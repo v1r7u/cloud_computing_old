@@ -18,3 +18,7 @@ At the moment, all the demo materials are focused on Azure Cloud as an example.
 
 1. What is Cloud. [Azure cloud: web interface](demo_steps_docs/01-what-is-cloud_cloud-gui.md).
 2. What is Cloud. [How to use this repository; terraform](demo_steps_docs/02-what-is-cloud_terraform.md).
+3. Core Services. [Create Azure Kuberntes Service](demo_steps_docs/03-core-services_aks.md).
+4. Core Services. [Show Azure Storage Services](demo_steps_docs/04-core-services_storage.md).
+5. Core Services. [Show Azure Networking Services](demo_steps_docs/05-core-services_networking.md).
+6. Core Services. [Show Function as a Service](demo_steps_docs/06-core-services_faas.md).

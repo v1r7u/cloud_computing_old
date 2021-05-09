@@ -30,8 +30,8 @@ resource "azurerm_function_app" "faas" {
   version                    = "~3"
 
   app_settings = {
-    FUNCTIONS_WORKER_RUNTIME = "python"
-    AzureWebJobsStorage: azurerm_storage_account.faas_storage.primary_connection_string,
+    "FUNCTIONS_WORKER_RUNTIME" = "python"
+    "AzureWebJobsStorage": azurerm_storage_account.faas_storage.primary_connection_string,
     "eventHubName": azurerm_eventhub.eh_raw.name,
     "CloudComputingEventHubConnectionString": azurerm_eventhub_namespace.ehn.default_primary_connection_string,
     "StorageAccountConnectionString": azurerm_storage_account.sa.primary_connection_string,

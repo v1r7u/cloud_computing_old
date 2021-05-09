@@ -17,42 +17,42 @@ As provisioning VMs and Postgres takes a while, it's suggested to review AKS net
 
 3. Create `terraform.tfvars` file. This file will contain your unique properties for the rest of terraform configuration, for example:
 
-  ```
-  cat > terraform.tfvars <<'EOF'
-  subscription_id = "00000000-0000-0000-0000-000000000000"
+```sh
+cat > terraform.tfvars << EOF
+subscription_id = "00000000-0000-0000-0000-000000000000"
 
-  prefix   = "igork"
-  location = "westeurope"
+prefix   = "igork"
+location = "westeurope"
 
-  psql_admin    = "psqladmin"
-  psql_password = "Secure-password"
-  EOF
-  ```
+psql_admin    = "psqladmin"
+psql_password = "Secure-password"
+EOF
+```
 
 4. Review proposed terraform configuration:
 
-- create two VMs and two PSQL instances
-- one VM communicates with PSQL via public interface. VM public IP is added to PSQL firewall rules
-- the second VM uses PSQL private endpoint and all the traffic does not leave Azure data-center
+  - create two VMs and two PSQL instances
+  - one VM communicates with PSQL via public interface. VM public IP is added to PSQL firewall rules
+  - the second VM uses PSQL private endpoint and all the traffic does not leave Azure data-center
 
 5. Provision Azure components via terraform
 
-  ```sh
-    terraform init
-    terraform apply
-  ```
+```sh
+  terraform init
+  terraform apply
+```
 
 6. Parse terraform output: save private key and environment variables:
 
-  ```sh
-    terraform output -raw tls_private_key > ~/id_psql_test
-    chmod 400 ~/id_psql_test
-    export PRIVATE_VM_IP=$(terraform output -raw private_vm_ip)
-    export PUBLIC_VM_IP=$(terraform output -raw public_vm_ip)
-    export PRIVATE_PSQL_HOSTNAME=$(terraform output -raw private_psql_hostname)
-    export PUBLIC_PSQL_HOSTNAME=$(terraform output -raw public_psql_hostname)
-    export PSQL_ADMIN=$(terraform output -raw psql_admin_name)
-  ```
+```sh
+  terraform output -raw tls_private_key > ~/id_psql_test
+  chmod 400 ~/id_psql_test
+  export PRIVATE_VM_IP=$(terraform output -raw private_vm_ip)
+  export PUBLIC_VM_IP=$(terraform output -raw public_vm_ip)
+  export PRIVATE_PSQL_HOSTNAME=$(terraform output -raw private_psql_hostname)
+  export PUBLIC_PSQL_HOSTNAME=$(terraform output -raw public_psql_hostname)
+  export PSQL_ADMIN=$(terraform output -raw psql_admin_name)
+```
 
 ### Perform tests
 
@@ -63,16 +63,16 @@ To perform tests, you have to connect to each vm with corresponding commands
 Once you are connected to a VM run the commands:
 
 ```sh
-  sudo apt update && sudo apt upgrade -y
-  sudo apt-get install -y postgresql-client postgresql-contrib
+sudo apt update && sudo apt upgrade -y
+sudo apt-get install -y postgresql-client postgresql-contrib
 
-  pgbench -i "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampledb user=$PSQL_ADMIN@$PSQL_HOSTNAME sslmode=require"
+pgbench -i "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampledb user=$PSQL_ADMIN@$PSQL_HOSTNAME sslmode=require"
 
-  # 3 client, 60 seconds, run transactional commands
-  pgbench "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampledb user=$PSQL_ADMIN@$PSQL_HOSTNAME sslmode=require" -c 3 -T 60
+# 3 client, 60 seconds, run transactional commands
+pgbench "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampledb user=$PSQL_ADMIN@$PSQL_HOSTNAME sslmode=require" -c 3 -T 60
 
-  # 3 client, 60 seconds, select-only
-  pgbench "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampledb user=$PSQL_ADMIN@$PSQL_HOSTNAME sslmode=require" -c 3 -T 60 -S
+# 3 client, 60 seconds, select-only
+pgbench "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampledb user=$PSQL_ADMIN@$PSQL_HOSTNAME sslmode=require" -c 3 -T 60 -S
 ```
 
 ### Check results
