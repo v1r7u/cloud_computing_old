@@ -88,12 +88,13 @@ AzureDiagnostics
 ```
 
 TODO: Billable metric is removed. Find another way to show the traffic price :(
+
 Open any VM resource
 - open `Metrics` tab
 - select `Network Out Billable`
 - select both VMs as scope:
 
-![PSQL network](../files/psql_network.png)
+![PSQL network](../files/03-06-core-serivces/psql_network.png)
 
 ### Clean up
 
