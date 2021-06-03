@@ -22,3 +22,76 @@ resource "azurerm_eventhub" "eh_raw" {
   partition_count   = 3
   message_retention = 1
 }
+
+resource "azurerm_monitor_diagnostic_setting" "event_hub_logs" {
+  name = "eventhublogs"
+
+  target_resource_id         = azurerm_eventhub_namespace.ehn.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  log {
+    category = "ArchiveLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+  log {
+    category = "OperationalLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+  log {
+    category = "AutoScaleLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+  log {
+    category = "KafkaCoordinatorLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+  log {
+    category = "KafkaUserErrorLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+  log {
+    category = "EventHubVNetConnectionEvent"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+  log {
+    category = "CustomerManagedKeyUserLogs"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = true
+      days = 30
+    }
+  }
+}

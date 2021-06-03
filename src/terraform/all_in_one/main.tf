@@ -31,6 +31,8 @@ module "faas_eh_sa" {
 
   prefix   = var.prefix
   location = var.location
+
+  log_analytics_workspace_id = module.observability.log_analytics_workspace_id
 }
 
 module "vm_psql_net" {
@@ -45,7 +47,6 @@ module "vm_psql_net" {
   psql_sku          = var.psql_sku
 
   vm_size           = var.vm_size
-  ssh_pub_key_path  = var.ssh_pub_key_path
 
   log_analytics_workspace_id = module.observability.log_analytics_workspace_id
 }

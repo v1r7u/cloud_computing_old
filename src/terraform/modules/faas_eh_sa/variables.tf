@@ -5,3 +5,7 @@ variable "prefix" {
 variable "location" {
   description = "The Azure Region in which all resources in this example should be created."
 }
+
+variable "log_analytics_workspace_id" {
+  description = "Log Analytics Workspace Identifier"
+}
