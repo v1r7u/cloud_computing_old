@@ -21,7 +21,7 @@ The goal: show main terraform commands and how to use templates from this reposi
 
 3. Basic commands
 
-    0. Login to your Azure Cloud: `az login` and set your default subscription: `az account set -s SUBSRIPTION_ID`.
+    0. Login to your Azure Cloud: `az login --use-device-code` and set your default subscription: `az account set -s SUBSRIPTION_ID`.
 
     1. Navigate to directory with terraform configuration: `cd src/terraform/02-what-is-cloud`
 

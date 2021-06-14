@@ -18,5 +18,5 @@ module "storage_account" {
 
   prefix   = var.prefix
   location = var.location
-  min_tls_version = "TLS1_2"
+  min_tls_version = "TLS1_1"
 }

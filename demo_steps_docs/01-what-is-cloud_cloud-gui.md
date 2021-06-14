@@ -36,6 +36,8 @@ The goal: take a first look at Azure Cloud.
 
     Note, some resources should be unique across the entire Azure Cloud, some - across your subscription only.
 
+    Note, during deployment you can get pre-generated ARM template.
+
 4. Show created resource
 
     Open created resource:
