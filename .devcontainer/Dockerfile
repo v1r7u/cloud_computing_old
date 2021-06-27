@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ENV TERRAFORM_VERSION=1.0.0
+ENV TERRAFORM_VERSION=1.0.1
 
 RUN apt-get -y update
 RUN apt-get -y install \
