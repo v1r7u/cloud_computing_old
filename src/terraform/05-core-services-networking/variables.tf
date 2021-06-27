@@ -30,5 +30,5 @@ variable "psql_sku" {
 
 variable "vm_size" {
   description = "VM sku"
-  default     = "Standard_D8_v4"
+  default     = "Standard_D2_v4"
 }

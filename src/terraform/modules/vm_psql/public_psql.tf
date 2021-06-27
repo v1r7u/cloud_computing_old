@@ -28,6 +28,14 @@ resource "azurerm_postgresql_firewall_rule" "psql_public_fw_rule" {
   server_name         = azurerm_postgresql_server.public.name
   start_ip_address    = azurerm_public_ip.vm_public_pip.ip_address
   end_ip_address      = azurerm_public_ip.vm_public_pip.ip_address
+
+  # edge case :'(
+  # Actual azurerm_public_ip.vm_public_pip.ip_address is assigned only when it is requested by a network interface
+  # Thus, only after VM is provisioned, ip_address is not an empty string
+  # without explicit dependency - it fails
+  depends_on = [
+    azurerm_linux_virtual_machine.public
+  ]
 }
 
 resource "azurerm_monitor_diagnostic_setting" "psql_public_logs" {
@@ -42,6 +50,26 @@ resource "azurerm_monitor_diagnostic_setting" "psql_public_logs" {
     retention_policy {
       enabled = true
       days = 30
+    }
+  }
+
+  log {
+    category = "QueryStoreRuntimeStatistics"
+    enabled  = false
+
+    retention_policy {
+      enabled = false
+      days = 0
+    }
+  }
+
+  log {
+    category = "QueryStoreWaitStatistics"
+    enabled  = false
+
+    retention_policy {
+      enabled = false
+      days = 0
     }
   }
 

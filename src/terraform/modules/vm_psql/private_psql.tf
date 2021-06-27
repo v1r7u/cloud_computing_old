@@ -58,6 +58,26 @@ resource "azurerm_monitor_diagnostic_setting" "psql_private_logs" {
     }
   }
 
+  log {
+    category = "QueryStoreRuntimeStatistics"
+    enabled  = false
+
+    retention_policy {
+      enabled = false
+      days = 0
+    }
+  }
+
+  log {
+    category = "QueryStoreWaitStatistics"
+    enabled  = false
+
+    retention_policy {
+      enabled = false
+      days = 0
+    }
+  }
+
   metric {
     category = "AllMetrics"
 
