@@ -13,9 +13,17 @@ provider "azurerm" {
   features {}
 }
 
+module "observability" {
+  source = "../modules/observability"
+  prefix   = var.prefix
+  location = var.location
+}
+
 module "faas" {
   source = "../modules/faas_eh_sa"
 
   prefix   = var.prefix
   location = var.location
+
+  log_analytics_workspace_id = module.observability.log_analytics_workspace_id
 }

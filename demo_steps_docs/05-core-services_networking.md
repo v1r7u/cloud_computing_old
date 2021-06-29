@@ -38,20 +38,29 @@ EOF
 5. Provision Azure components via terraform
 
 ```sh
-  terraform init
-  terraform apply
+terraform init
+terraform apply
 ```
+
+NOTE: deployment fails at first, because `azurerm_postgresql_firewall_rule` cannot get public_ip value. Azure assigns real IP address only when it is attached to a network-interface. However, terraform stores public_ip information in state file after the ip object is created and at this point of time the value is empty string `""`:
+> Error: expected start_ip_address to contain a valid IPv4 address, got: 
+>
+>  with module.vm_psql_net.azurerm_postgresql_firewall_rule.psql_public_fw_rule,
+>  on ../modules/vm_psql/public_psql.tf line 29, in resource "azurerm_postgresql_firewall_rule" "psql_public_fw_rule":
+>  29:   start_ip_address    = azurerm_public_ip.vm_public_pip.ip_address
+
+You can check empty value in state file, then rerun `terraform apply`, then check the state file again.
 
 6. Parse terraform output: save private key and environment variables:
 
 ```sh
-  terraform output -raw tls_private_key > ~/id_psql_test
-  chmod 400 ~/id_psql_test
-  export PRIVATE_VM_IP=$(terraform output -raw private_vm_ip)
-  export PUBLIC_VM_IP=$(terraform output -raw public_vm_ip)
-  export PRIVATE_PSQL_HOSTNAME=$(terraform output -raw private_psql_hostname)
-  export PUBLIC_PSQL_HOSTNAME=$(terraform output -raw public_psql_hostname)
-  export PSQL_ADMIN=$(terraform output -raw psql_admin_name)
+terraform output -raw tls_private_key > ~/id_psql_test
+chmod 400 ~/id_psql_test
+export PRIVATE_VM_IP=$(terraform output -raw private_vm_ip)
+export PUBLIC_VM_IP=$(terraform output -raw public_vm_ip)
+export PRIVATE_PSQL_HOSTNAME=$(terraform output -raw private_psql_hostname)
+export PUBLIC_PSQL_HOSTNAME=$(terraform output -raw public_psql_hostname)
+export PSQL_ADMIN=$(terraform output -raw psql_admin_name)
 ```
 
 ### Perform tests
@@ -63,8 +72,7 @@ To perform tests, you have to connect to each vm with corresponding commands
 Once you are connected to a VM run the commands:
 
 ```sh
-sudo apt update && sudo apt upgrade -y
-sudo apt-get install -y postgresql-client postgresql-contrib
+sudo apt update && sudo apt upgrade -y && sudo apt-get install -y postgresql-client postgresql-contrib
 
 pgbench -i "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampledb user=$PSQL_ADMIN@$PSQL_HOSTNAME sslmode=require"
 
@@ -82,8 +90,8 @@ Open Log Analytics and query:
 ```kusto
 AzureDiagnostics 
 | project TimeGenerated, Resource, Message
-| where Message contains "connection received: host"
-| where Message !contains "127.0.0.1"
+| where Message has "connection received: host"
+| where Message !has "127.0.0.1"
 | take 1000
 ```
 
