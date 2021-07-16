@@ -23,6 +23,6 @@ The goal: introductions into policies management
 6. For example, to scan terraform configuration in this repository with checkov
 
 ```sh
-ABSOLUTE_PATH_TO_TF=/mnt/c/Users/igork/projects/cloud_templates/src/terraform
-docker run --volume $ABSOLUTE_PATH_TO_TF:/tf bridgecrew/checkov:2.0.160 --quiet --compact --directory /tf
+ABSOLUTE_PATH_TO_TF=/mnt/c/Users/igork/projects/cloud_computing_course/src/terraform
+docker run --volume $ABSOLUTE_PATH_TO_TF:/tf bridgecrew/checkov:2.0.276 --quiet --compact --directory /tf
 ```
