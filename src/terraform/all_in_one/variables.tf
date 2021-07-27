@@ -25,10 +25,10 @@ variable "psql_storage_size" {
 
 variable "psql_sku" {
   description = "PSQL sku"
-  default     = "GP_Gen5_4"
+  default     = "GP_Gen5_2"
 }
 
 variable "vm_size" {
   description = "VM sku"
-  default     = "Standard_D8_v4"
+  default     = "Standard_D2_v4"
 }

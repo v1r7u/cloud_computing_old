@@ -30,11 +30,20 @@ resource "azurerm_subnet" "dbs" {
   enforce_private_link_endpoint_network_policies = true
 }
 
+/*
+> Dynamic Public IP Addresses aren't allocated until they're attached to a device (e.g. a Virtual Machine/Load Balancer).
+> Instead you can obtain the IP Address once the Public IP has been assigned via the azurerm_public_ip Data Source.
+
+Thus,
+- azurerm_public_ip.vm_public_pip will have `ip_address` attribute immediately, which is crucial for dependent public-psql firewall-rule resource
+- azurerm_public_ip.vm_private_pip will have empty `ip_address` attribute, until private_vm is finally created
+*/
+
 resource "azurerm_public_ip" "vm_public_pip" {
   name                = "${var.prefix}-vm-public-pip"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_public_ip" "vm_private_pip" {

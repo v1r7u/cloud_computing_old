@@ -14,7 +14,7 @@ The goal: show structured and plain-text logs, metrics and dashboards, all-in-on
 
 ```sh
 cat > terraform.tfvars << EOF
-subscription_id = "2199ae92-2e93-45f0-a0eb-da5c4f3a8146"
+subscription_id = "00000000-0000-0000-0000-000000000000"
 
 prefix   = "igork"
 location = "westeurope"

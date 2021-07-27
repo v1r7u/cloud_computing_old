@@ -33,7 +33,7 @@ Cloud computing landscape is too large to cover each and every bit within a few 
 
 ### Mandatory tasks
 
-Each mandatory task has a deadline date. Finishing homeworks after deadline date is allowed, but final score will be reduced by 1 point for each overdue day (not more than -20 for a single homework-day).
+Each mandatory task has a deadline date. Finishing homeworks after deadline date is allowed, but final score will be reduced by 1 point for each overdue day (not more than -10 for a single homework-day).
 
 Note, mandatory tasks are required to complete the course even if due missed deadline you are getting minimum or no points at all.
 
