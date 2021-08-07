@@ -54,9 +54,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-5. Deploy function to Azure: `func azure functionapp publish $FUNCTION_APP_NAME --python`. Note, it takes _some time_ to finish the process.
+3. Deploy function to Azure: `func azure functionapp publish $FUNCTION_APP_NAME --python`. Note, it takes _some time_ to finish the process.
 
-6. Ingest events with load-generator tool `k6`
+4. Ingest events with load-generator tool `k6`
 
     - `cd src/load_generator`
     - Update `src/load_generator/script.js` with function URL from function-publish output or from Code+Test view at Azure Portal, for example: `https://igork-ex4f-func.azurewebsites.net/api/HttpToEventHub?code=Q3NoO2M4LmARBdh/nAcRe0Giaa0yKrVBMN6bbQQZ9ZaVxqyvBXRXKg==`
