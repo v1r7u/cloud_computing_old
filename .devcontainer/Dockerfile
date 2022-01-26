@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-ENV TERRAFORM_VERSION=1.0.1
-
 RUN apt-get -y update
 RUN apt-get -y install \
     unzip \
@@ -11,11 +9,6 @@ RUN apt-get -y install \
     lsb-release \
     gnupg \
     git
-
-RUN curl -O https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin/ && \
-    rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    terraform version
 
 ### AZ CLI
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
@@ -38,3 +31,9 @@ RUN apt-get -y install \
 # Without this env variable, `func` fails to run any command.
 # More details: https://github.com/Azure/azure-functions-core-tools/issues/2554
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+
+ARG TERRAFORM_VERSION=1.0.1
+RUN curl -O https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin/ && \
+    rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    terraform version
