@@ -4,18 +4,18 @@ The goal: show main terraform commands and how to use templates from this reposi
 
 1. How to run the commands
 
-    The repository supports [VSCode remote containers](https://code.visualstudio.com/docs/remote/containers). `/.devcontainer` directory contains a ready-to-go profile and dockerfile with required dependencies to run all the samples.
+    The repository supports [VSCode remote containers](https://code.visualstudio.com/docs/remote/containers). `.devcontainer` directory contains a ready-to-go profile and dockerfile with required dependencies to run all the samples.
 
     You can run all the commands:
 
     - on your own environment, then you have to install all the used tools (terraform, az-cli, az-func, etc)
-    - inside VSCode Remote Container, then you have to install docker and VSCode extantion [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
+    - inside VSCode Remote Container, then you have to install docker and VSCode extention [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
 
 2. What is terraform
 
     [Terraform](https://www.terraform.io/) is software which helps to describe *infrastructure as code* and manage it's lifecycle: plan, create, delete. If you are not familiar with terraform, after going through this demo check the complete [getting-started tutorial](https://learn.hashicorp.com/terraform).
 
-    `terraform` transforms human-readable configuration into a state file, which then applies to external resources (e.g. Azure Cloud):
+    `terraform` transforms human-readable configuration into a state file, which applies then to external resources (e.g. Azure Cloud):
 
     ![terraform](../files/02-terraform/terraform.png)
 

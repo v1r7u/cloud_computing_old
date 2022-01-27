@@ -8,7 +8,7 @@ The goal: take a first look at Azure Cloud.
 
     In most cases needed resource could be found with help of free-text-search texbox at the top of the screen `1`.
 
-    You can also use a hamburger menu at the top-left cornert to oned ***All services*** view via steps `2` and `3`. ***All services*** groups all available services into categories and also gives a *Filter* option.
+    You can also use a hamburger menu at the top-left corner to oped ***All services*** view via steps `2` and `3`. ***All services*** groups all available services into categories and also gives a *Filter* option.
 
     If most of the time you work with a subset of services, you can add them to ***Favorites*** `4`. To accomplish that, find a service in ***All services*** view, hover the mouse on it and wait for pop-up to appear, then press *star* icon:
 
@@ -78,6 +78,6 @@ The goal: take a first look at Azure Cloud.
 
 6. Support Request and troubleshooting
 
-    All resources have ***Support + troubleshooting*** tab. If you define your issue criterias, Azure portal might suggest documentation, dashboards, troubleshoot steps. If you have paid support, you can also leave a support-request.
+    All resources have ***Support + troubleshooting*** tab. If you define your issue criteria, Azure portal might suggest documentation, dashboards, troubleshoot steps. If you have paid support, you can also leave a support-request.
 
     ![support](../files/01-what-is-cloud_cloud-gui/08-support.png)
