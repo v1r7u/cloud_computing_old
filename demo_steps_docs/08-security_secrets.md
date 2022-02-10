@@ -56,21 +56,19 @@ The goal: basic secrets-management operations.
 
     - Now, only identities that are listed in Access Policies can _read_ the secret.
 
-5. Azure Key Vault use case:
+5. Key/Secret Vault use case:
 
     - administrator user or application has a permission to create new secrets or update existing ones
     - consumer user or application has a permission only to list/read secrets
     - administrator generates a temporary (for example, 24 hours) SAS token to read and upload data within a Storage Account container
     - administrator uploads the secret into Key Vault
-    - consumers read secret from Key Vauylt and use it to access the data
+    - consumers read secret from Key Vault and use it to access the data
     - some time before secret expires, you generate a new SAS token and upload it to the same Key Vault
     - if consumer gets `403` response from Storage Account, they gets secret from Key Vault again.
 
     Disclaimer-1: You can automate [secrets rotation using FaaS and Event Grid](https://docs.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation-dual):
 
     ![key vault: rotate secret](../files/06-12-security/08-key-vault-03-rotate-secret.png)
-
-    Disclaimer-2: The described example is generic way to do secrets rotation. Azure promises native integration for [Key Vault and Storage SAS](https://docs.microsoft.com/en-us/azure/key-vault/secrets/storage-keys-sas-tokens-code).
 
 ## Summary
 

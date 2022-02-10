@@ -1,8 +1,8 @@
 # Disaster recovery
 
-The goal: introductions into disaster recovery
+The goal: introduction into disaster recovery
 
-Disclaimer: the following section give only a brief introduction into the topics and propose a few low-hanging fruits to get started.
+Disclaimer: the following section gives only a brief introduction into the topics and propose a few low-hanging fruits to get started.
 
 1. A cloud often offers disaster-recovery tools from the box:
 

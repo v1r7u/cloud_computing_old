@@ -24,6 +24,6 @@
 
     ### Azure run
     # Get function URL from Code+Test view
-    FUNCTION_URL=https://igork-dv5o-func.azurewebsites.net/api/HttpToEventHub?code=9eIGWkAv7RKq6m3ykUWhWRLn2ZLcG4ZEGqtLN9HRaK/UkhJH5tjaBg==
+    FUNCTION_URL=https://cloudcomp-dv5o-func.azurewebsites.net/api/HttpToEventHub?code=9eIGWkAv7RKq6m3ykUWhWRLn2ZLcG4ZEGqtLN9HRaK/UkhJH5tjaBg==
     echo $(date) | xargs -I{} curl -d '{"name":"the first", "time":"{}"}' -X POST $FUNCTION_URL
     ```

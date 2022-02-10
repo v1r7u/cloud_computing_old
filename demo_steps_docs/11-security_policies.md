@@ -1,6 +1,6 @@
 # Policies
 
-The goal: introductions into policies management
+The goal: introduction into policies management
 
 1. Policy: system of rules and principal to achieve a rational outcomes.
 
@@ -23,6 +23,6 @@ The goal: introductions into policies management
 6. For example, to scan terraform configuration in this repository with checkov
 
 ```sh
-ABSOLUTE_PATH_TO_TF=/mnt/c/Users/igork/projects/cloud_computing_course/src/terraform
-docker run --volume $ABSOLUTE_PATH_TO_TF:/tf bridgecrew/checkov:2.0.276 --quiet --compact --directory /tf
+ABSOLUTE_PATH_TO_TF=/home/cloudcomp/cloud_computing_course/src/terraform
+docker run --volume $ABSOLUTE_PATH_TO_TF:/tf bridgecrew/checkov:2.0.813 --quiet --compact --directory /tf
 ```

@@ -10,19 +10,7 @@ The goal: show structured and plain-text logs, metrics and dashboards, all-in-on
 
 3. Change working directory to: `cd src/terraform/all_in_one`
 
-4. Create `terraform.tfvars` file. This file will contain your unique properties for the rest of terraform configuration, for example:
-
-```sh
-cat > terraform.tfvars << EOF
-subscription_id = "00000000-0000-0000-0000-000000000000"
-
-prefix   = "igork"
-location = "westeurope"
-
-psql_admin    = "psqladmin"
-psql_password = "Secure-password"
-EOF
-```
+4. Create `terraform.tfvars` file. This file contains your unique properties for the rest of terraform configuration. You can use a sample generator script: `../generate_tfvars.sh`
 
 5. Provision Azure components via terraform
 
@@ -59,7 +47,7 @@ pip install -r requirements.txt
 4. Ingest events with load-generator tool `k6`
 
     - `cd src/load_generator`
-    - Update `src/load_generator/script.js` with function URL from function-publish output or from Code+Test view at Azure Portal, for example: `https://igork-ex4f-func.azurewebsites.net/api/HttpToEventHub?code=Q3NoO2M4LmARBdh/nAcRe0Giaa0yKrVBMN6bbQQZ9ZaVxqyvBXRXKg==`
+    - Update `src/load_generator/script.js` with function URL from function-publish output or from Code+Test view at Azure Portal, for example: `https://cloudcomp-ex4f-func.azurewebsites.net/api/HttpToEventHub?code=Q3NoO2M4LmARBdh/nAcRe0Giaa0yKrVBMN6bbQQZ9ZaVxqyvBXRXKg==`
     - test function: `docker run -i loadimpact/k6 run -d 2m - <script.js`
 
 ## Unstructured (plaintext) logs
@@ -86,7 +74,7 @@ Review structured logs in Azure Log Analytics
 
 2. Slice and dice logs:
 
-    - filter-out: `AzureDiagnostics | where LogicalServerName_s <> "igork-postgresql-pub" | take 10`
+    - filter-out: `AzureDiagnostics | where LogicalServerName_s <> "cloudcomp-postgresql-pub" | take 10`
     - order: `AzureDiagnostics | order by TimeGenerated desc | take 10`
     - project: `AzureDiagnostics | project TimeGenerated, Message | take 10`
     - visualize:

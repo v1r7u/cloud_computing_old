@@ -1,16 +1,16 @@
 # Configuration management
 
-The goal: introductions into configuration-management
+The goal: introduction into configuration-management
 
 Disclaimer: the following section give only a brief introduction into the topics and propose a few low-hanging fruits to get started.
 
-## Common Vulnerabilities and Exposures
+## Common Vulnerabilities and Exposures (CVE)
 
 1. (Almost) all the software has issues (intentional or not).
 
     - Likely, we are not eager to run application with known issues inside.
-    - When an issue is discovered, engineers tries to fix it and release a fix/patch.
-    - When a patch is released, we has to apply it to get rid of the issue.
+    - When an issue is discovered, engineers try to fix it and release a fix/patch.
+    - When a patch is released, we have to apply it to get rid of the issue.
 
 2. _Common Vulnerabilities and Exposures_ system provides a standard to describe vulnerable software: ID, description, severity, references.
 
@@ -19,24 +19,33 @@ Disclaimer: the following section give only a brief introduction into the topics
 4. One of popular _scanners_ is [trivy](https://github.com/aquasecurity/trivy). You can install it to your machine or run inside a container, for example:
 
     ```sh
-    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.19.1 python:3.9
+    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.23.0 image python:3.9
     ```
 
     Discalimer: there are a lot of other free and commercial scanners: [Clair](https://github.com/quay/clair), [anchore/grype](https://github.com/anchore/grype), [snyk](https://snyk.io/product/container-vulnerability-management/) to name a few.
 
-5. You can include image-scanning as gate before pushing an image to Container Registry. thus, if container has a known vulnerability - image is not release:
+    NOTE: `trivy` does not actually dive into packages content, but _trusts_ reported version number. For example, you can update java pom file manually to _trick_ the tool. Thus it's not a reliable runtime protection, but an assistant to understand your software.
+
+5. You can include image-scanning as gate before pushing an image to Container Registry. thus, if container has a known vulnerability - image is not released:
 
     ```sh
-    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.19.1 --exit-code 1 --no-progress python:3.9
+    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.23.0 image --exit-code 1 --no-progress python:3.9
+
+    # get exit-code of last command
+    echo $?
+
+    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.23.0 image --exit-code 1 --no-progress alpine:latest
+
+    echo $?
     ```
 
-    You can also use `--light` mode to run faster but with less details, fail only on critical issues `--severity HIGH,CRITICAL`, ignore unfixed `--ignore-unfixed` or particular CVEs `--ignorefile ~/.trivyignore`.
+    You can fail only on critical issues `--severity HIGH,CRITICAL`, ignore unfixed `--ignore-unfixed` or particular CVEs `--ignorefile ~/.trivyignore`.
 
 6. Often, you do not have to fix all the CVEs manually, but change your base image:
 
     ```sh
     ### buster
-    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.19.1 --exit-code 1 --no-progress --light python:3.9
+    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.23.0 image --exit-code 1 --no-progress python:3.9
 
     python:3.9 (debian 10.9)
     ========================
@@ -45,7 +54,7 @@ Disclaimer: the following section give only a brief introduction into the topics
 
     ```sh
     ### buster-slim
-    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.19.1 --exit-code 1 --no-progress --light python:3.9-slim
+    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.23.0 image --exit-code 1 --no-progress python:3.9-slim
 
     python:3.9-slim (debian 10.9)
     =============================
@@ -54,7 +63,7 @@ Disclaimer: the following section give only a brief introduction into the topics
 
     ```sh
     ### alpine
-    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.19.1 --exit-code 1 --no-progress --light python:3.9-alpine
+    docker run --rm -v ~/.trivy:/root/.cache/ aquasec/trivy:0.23.0 image --exit-code 1 --no-progress python:3.9-alpine
 
     python:3.9-alpine (alpine 3.13.5)
     =================================
@@ -73,13 +82,13 @@ Disclaimer: the following section give only a brief introduction into the topics
 
 ## Software supply-chain protection
 
-1. Software supply chain (e.g. code delivery process): write code, build, test, deploy, run.
+1. Software supply chain (e.g. code delivery process): write code, build, test, deploy, run, monitor.
 
 2. Build your solution only on top of trusted sources. For example, do not use no-name pip/npm packages or base docker-images. Consider pulling used dependencies to your local package registry instead of pulling from public sources.
 
 3. During writing code you can use [Static Code Analysis](https://en.wikipedia.org/wiki/Static_program_analysis) tools to catch issues earlier. To find a tool for your language, search `static code analysis {your programming language}`. Maybe, the most popular one is [Sonarqube](https://www.sonarqube.org/).
 
-4. Regularly patch your dependencies and run scanners, like Trivy.
+4. Regularly patch your dependencies and run scanners, like `trivy` above.
 
 5. Sign your [commits](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work), [container images](https://docs.docker.com/engine/security/trust/).
 
@@ -102,6 +111,7 @@ Disclaimer: the following section give only a brief introduction into the topics
     docker inspect --format='{{index .RepoDigests 0}}' python:3.9
 
     # run image by digest instaed of tag:
+    # NOTE: likely, at the moment the hash is different, e.g. someone pushed a new image with the same 3.9 tag
     docker run -it --rm python@sha256:f265c5096aa52bdd478d2a5ed097727f51721fda20686523ab1b3038cc7d6417
     ```
 
@@ -118,3 +128,4 @@ Disclaimer: the following section give only a brief introduction into the topics
 
 - [How to Spoof Any User on Github…and What to Do to Prevent It](https://blog.gruntwork.io/how-to-spoof-any-user-on-github-and-what-to-do-to-prevent-it-e237e95b8deb).
 - [Supply chain attacks](https://docs.microsoft.com/en-us/windows/security/threat-protection/intelligence/supply-chain-malware) article by Microsoft.
+- [Open source maintainer pulls the plug on npm packages colors and faker](https://snyk.io/blog/open-source-npm-packages-colors-faker/)

@@ -8,16 +8,7 @@ The goal: show Azure Function is connections with other services
 
 2. Change working directory to: `cd src/terraform/06-core-services-faas`
 
-3. Create `terraform.tfvars` file. This file will contain your unique properties for the rest of terraform configuration, for example:
-
-```sh
-cat > terraform.tfvars << EOF
-subscription_id = "00000000-0000-0000-0000-000000000000"
-
-prefix   = "igork"
-location = "westeurope"
-EOF
-```
+3. Create `terraform.tfvars` file. This file contains your unique properties for the rest of terraform configuration. You can use a sample generator script: `../generate_tfvars.sh`
 
 4. Review proposed terraform configuration:
 
@@ -70,7 +61,7 @@ pip install -r requirements.txt
 func azure functionapp list-functions $FUNCTION_APP_NAME --show-keys
 
 # Get function URL from previous command or from Code+Test view, for example:
-FUNCTION_URL=https://igork-ex4f-func.azurewebsites.net/api/HttpToEventHub?code=Q3NoO2M4LmARBdh/nAcRe0Giaa0yKrVBMN6bbQQZ9ZaVxqyvBXRXKg==
+FUNCTION_URL=https://cloudcomp-ex4f-func.azurewebsites.net/api/HttpToEventHub?code=Q3NoO2M4LmARBdh/nAcRe0Giaa0yKrVBMN6bbQQZ9ZaVxqyvBXRXKg==
 echo $(date) | xargs -I{} curl -d '{"name":"the forth", "time":"{}"}' -X POST $FUNCTION_URL
 ```
 

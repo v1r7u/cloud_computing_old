@@ -5,7 +5,7 @@ The goal: inspect real certificates content, generate a sample one
 1. Certificates are used to identify an Entity. To prove the identification, there is a certificate chain: leaf, intermediate, and root certs.
 
     - open any website and show certificate: subject, alternative names, valid to/from, trust-chain
-    - get certificate from terminal and compare : `echo | openssl s_client -servername github.com -connect github.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt`
+    - get certificate from terminal and compare : `echo | openssl s_client -servername github.com -connect github.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > certificate.crt` OR `openssl s_client -showcerts -connect github.com:443`
 
     By default, your browser accepts certificates that have trusted Certificate Authority in its trust-chain. You can _trust_ other authoirities too, but you have to add them to truststore first.
 
@@ -31,7 +31,7 @@ openssl x509 -text -noout -in root.pem
 # leaf private key
 openssl genrsa -out leaf.key 2048
 
-# leaf certificate request
+# leaf certificate request which could be sent to CA for signing
 openssl req -new -key leaf.key \
     -out leaf.csr \
     -subj "/C=UA/CN=example.com"
@@ -50,6 +50,10 @@ openssl x509 -req \
     <(echo "[server_ext]"; echo "extendedKeyUsage=serverAuth,clientAuth"; echo "subjectAltName=DNS.1:example.com,DNS.2:*.example.com")
 
 openssl x509 -text -noout -in leaf.crt
+
+# check hashes
+openssl x509 -in leaf.crt -noout -hash -issuer_hash
+openssl x509 -in root.pem -noout -hash -issuer_hash
 ```
 
 ## Further reading:

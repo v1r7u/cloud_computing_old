@@ -1,6 +1,6 @@
 # Identity Access Management
 
-The goal: introductions into identity access management
+The goal: introduction into identity access management
 
 ## Azure Identity Access Management (IAM)
 
@@ -72,4 +72,20 @@ Show all the following steps in minikube: `minikube start -n 2`
     kubectl describe clusterrolebindings ...
     ```
 
-6. There are tools to help navigating RBAC world: [who-can](https://github.com/aquasecurity/kubectl-who-can), [rbac-lookup](https://github.com/FairwindsOps/rbac-lookup), or kubernetes IDEs ([k9s](https://github.com/derailed/k9s), [lens](https://github.com/lensapp/lens), [octant](https://github.com/vmware-tanzu/octant), etc)
+6. There are tools to help navigating RBAC world: 
+
+    - native kubectl:
+
+    ```
+    $ kubectl auth can-i delete namespace
+    Warning: resource 'namespaces' is not namespace scoped
+    yes
+
+    $ kubectl auth can-i delete ns --as joe
+    Warning: resource 'namespaces' is not namespace scoped
+    no
+    ```
+
+    - [who-can](https://github.com/aquasecurity/kubectl-who-can),
+    - [rbac-lookup](https://github.com/FairwindsOps/rbac-lookup), 
+    - or kubernetes IDEs ([k9s](https://github.com/derailed/k9s), [lens](https://github.com/lensapp/lens), [octant](https://github.com/vmware-tanzu/octant), etc)

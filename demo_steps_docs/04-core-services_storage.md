@@ -10,7 +10,7 @@ The goal: show Azure Storage Services
 
     3. Select desired region.
 
-    4. Select Performance, `StorageV2` Account kind and Replication. Show that depending on choice options are changing. For example, premium staorge backed by SSD allow only LRS replication.
+    4. Select Performance, `StorageV2` Account kind and Replication. Show that depending on choice options are changing. For example, premium storage backed by SSD allow only LRS replication.
 
     5. Go to Networking. Stay with default but explain options.
 
@@ -22,7 +22,7 @@ The goal: show Azure Storage Services
 
 2. Review created Storage Account
 
-    1. Show Access Keys
+    1. Show Access Keys.
 
     2. Show Containers: create container, upload file, show shared access signature.
 
@@ -34,6 +34,8 @@ The goal: show Azure Storage Services
 
     6. Show Insights.
 
-    7. Show Storage Explorer: show all created resource + work with data
+    7. Show Storage Explorer: show all created resource + work with data.
 
 3. At Azure Disk creation view show how size impact performance
+
+    Mention VMs with local NVMe disks
