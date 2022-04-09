@@ -109,6 +109,8 @@ Disclaimer: the following section give only a brief introduction into the topics
 
     # find image immutable digest:
     docker inspect --format='{{index .RepoDigests 0}}' python:3.9
+    # or
+    docker images --digests
 
     # run image by digest instaed of tag:
     # NOTE: likely, at the moment the hash is different, e.g. someone pushed a new image with the same 3.9 tag
