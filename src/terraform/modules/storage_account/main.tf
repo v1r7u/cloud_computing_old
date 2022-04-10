@@ -1,6 +1,14 @@
+locals {
+  common_tags = {
+    terraform = true
+    project   = "cloud-computing-course"
+  }
+}
 resource "azurerm_resource_group" "sa" {
   name     = "${var.prefix}-sa-rg"
   location = var.location
+
+  tags = local.common_tags
 }
 
 resource "azurerm_storage_account" "sample_sa" {
@@ -13,4 +21,6 @@ resource "azurerm_storage_account" "sample_sa" {
   access_tier              = "Hot"
 
   min_tls_version = var.min_tls_version
+
+  tags = local.common_tags
 }
