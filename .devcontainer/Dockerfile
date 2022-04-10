@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:focal-20220404
 
 RUN apt-get -y update
 RUN apt-get -y install \
