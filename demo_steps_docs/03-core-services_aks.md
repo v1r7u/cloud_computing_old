@@ -32,4 +32,14 @@ The goal: show required steps to create a complex Azure offering (AKS)
 
     2. Show Kubernetes resources and Container Insights.
 
-    3. Show created _system resource group_ with VMs and networking stack.
+        Note, you might need `Azure Kubernetes Service Cluster Admin Role` and `Azure Kubernetes Service RBAC Cluster Admin` roles to view resources.
+
+    3. Create a test deployment to show how cluster-autoscaler works: `kubectl apply -f ./demo_steps_docs/03-core-services_aks_deployment.yaml`. Use `kubectl get pods` and `kubectl describe pod` to show that pods are created and nodes were requested.
+
+    You can also
+      - _watch_ to follow the process of creating new VMs: `kubectl get nodes -owide -w`
+      - Open node-pool in azure portal to show how numbers are changing
+
+    When the pods are up and running, consider deleting the deployment to show that Azure _eventually_ deprovision VMs: `kubectl delete -f ./demo_steps_docs/03-core-services_aks_deployment.yaml`
+
+    4. Show created _system resource group_ with VMs and networking stack.
