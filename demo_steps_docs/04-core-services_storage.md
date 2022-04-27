@@ -10,13 +10,13 @@ The goal: show Azure Storage Services
 
     3. Select desired region.
 
-    4. Select Performance, `StorageV2` Account kind and Replication. Show that depending on choice options are changing. For example, premium storage backed by SSD allow only LRS replication.
+    4. Select `Standard` Performance, and `LRS` Replication. Show that depending on choice options are changing. For example, premium storage backed by SSD allow only LRS replication.
 
     5. Go to Networking. Stay with default but explain options.
 
     6. Go to Data Protection. Stay with default (each option is self-explanatory)
 
-    7. Go to Advanced. Stay with default but exaplin options.
+    7. Go to Advanced. Stay with default but explain options.
 
     8. Skip tags, create Storage Account.
 
@@ -38,4 +38,4 @@ The goal: show Azure Storage Services
 
 3. At Azure Disk creation view show how size impact performance
 
-    Mention VMs with local NVMe disks
+    Mention VMs with local NVMe disks which might not support data-at-rest encryption
