@@ -30,14 +30,7 @@ terraform init
 terraform apply
 ```
 
-NOTE: deployment fails at first, because `azurerm_postgresql_firewall_rule` cannot get public_ip value. Azure assigns real IP address only when it is attached to a network-interface. However, terraform stores public_ip information in state file after the ip object is created and at this point of time the value is empty string `""`:
-> Error: expected start_ip_address to contain a valid IPv4 address, got: 
->
->  with module.vm_psql_net.azurerm_postgresql_firewall_rule.psql_public_fw_rule,
->  on ../modules/vm_psql/public_psql.tf line 29, in resource "azurerm_postgresql_firewall_rule" "psql_public_fw_rule":
->  29:   start_ip_address    = azurerm_public_ip.vm_public_pip.ip_address
-
-You can check empty value in state file, then rerun `terraform apply`, then check the state file again.
+NOTE: Public IP Address (PIP) for *private_vm* has `Dynamic` allocation type, which means that Azure allocates actual IP only after the PIP is attached to real resource (e.g. VM). Thus, after first `terraform apply` output value for `private_vm_ip` property will be empty. You can check this in state file, then rerun `terraform apply`, then check the state file again.
 
 6. Parse terraform output: save private key and environment variables:
 
@@ -76,14 +69,14 @@ pgbench "host=$PSQL_HOSTNAME.postgres.database.azure.com port=5432 dbname=exampl
 Open Log Analytics and query:
 
 ```kusto
-AzureDiagnostics 
+AzureDiagnostics
 | project TimeGenerated, Resource, Message
 | where Message has "connection received: host"
 | where Message !has "127.0.0.1"
 | take 1000
 ```
 
-TODO: Billable metric is removed. Find another way to show the traffic price :(
+TODO: Billable Network VM metric is deprecated. Find another way to show the traffic price :(
 
 Open any VM resource
 - open `Metrics` tab
