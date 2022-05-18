@@ -6,6 +6,8 @@ resource "azurerm_storage_account" "sa" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   access_tier              = "Hot"
+
+  tags = local.common_tags
 }
 
 resource "azurerm_storage_container" "events" {

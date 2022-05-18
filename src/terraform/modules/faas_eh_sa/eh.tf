@@ -12,6 +12,8 @@ resource "azurerm_eventhub_namespace" "ehn" {
   identity {
     type = "SystemAssigned"
   }
+
+  tags = local.common_tags
 }
 
 resource "azurerm_eventhub" "eh_raw" {
@@ -84,6 +86,22 @@ resource "azurerm_monitor_diagnostic_setting" "event_hub_logs" {
       enabled = true
       days = 30
     }
+  }
+  log {
+      category = "ApplicationMetricsLogs"
+
+      retention_policy {
+          enabled = true
+          days    = 30
+      }
+  }
+  log {
+      category = "RuntimeAuditLogs"
+
+      retention_policy {
+          enabled = true
+          days    = 30
+      }
   }
 
   metric {

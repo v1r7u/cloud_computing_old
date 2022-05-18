@@ -10,6 +10,8 @@ resource "azurerm_storage_account" "faas_storage" {
   location                 = azurerm_resource_group.faas_eh_sa.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+
+  tags = local.common_tags
 }
 
 resource "azurerm_app_service_plan" "faas" {
@@ -23,6 +25,8 @@ resource "azurerm_app_service_plan" "faas" {
     tier = "Dynamic"
     size = "Y1"
   }
+
+  tags = local.common_tags
 }
 
 resource "azurerm_application_insights" "app_insights" {
@@ -34,6 +38,8 @@ resource "azurerm_application_insights" "app_insights" {
   daily_data_cap_in_gb = 10
   retention_in_days    = 90
   sampling_percentage  = 100
+
+  tags = local.common_tags
 }
 
 resource "azurerm_function_app" "faas" {
@@ -55,4 +61,6 @@ resource "azurerm_function_app" "faas" {
     "StorageAccountContainerName": azurerm_storage_container.events.name,
     "APPINSIGHTS_INSTRUMENTATIONKEY": azurerm_application_insights.app_insights.instrumentation_key
   }
+
+  tags = local.common_tags
 }

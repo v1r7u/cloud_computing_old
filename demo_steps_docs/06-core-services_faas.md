@@ -61,8 +61,8 @@ pip install -r requirements.txt
 func azure functionapp list-functions $FUNCTION_APP_NAME --show-keys
 
 # Get function URL from previous command or from Code+Test view, for example:
-FUNCTION_URL=https://cloudcomp-ex4f-func.azurewebsites.net/api/HttpToEventHub?code=Q3NoO2M4LmARBdh/nAcRe0Giaa0yKrVBMN6bbQQZ9ZaVxqyvBXRXKg==
-echo $(date) | xargs -I{} curl -d '{"name":"the forth", "time":"{}"}' -X POST $FUNCTION_URL
+FUNCTION_URL=https://cloud22-mra8-func.azurewebsites.net/api/httptoeventhub?code=z3xyJuNGGuPzZBfS9mH0YGz3pnAke4ydiPPk3mg_EFT1AzFuWHC-FQ==
+echo $(date) | xargs -I{} curl -d '{"name":"the first", "time":"{}"}' -X POST $FUNCTION_URL
 ```
 
 6. Review and Feedback:

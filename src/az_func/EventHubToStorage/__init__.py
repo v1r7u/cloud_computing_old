@@ -6,8 +6,10 @@ from azure.storage.blob import BlobClient
 
 def main(event: func.EventHubEvent):
     message_body=event.get_body().decode()
+    partition=event.metadata['PartitionContext']['PartitionId']
     logging.info(f'EH: Function triggered to process a message: {message_body}')
     logging.info(f'EH:   EnqueuedTimeUtc = {event.enqueued_time}')
+    logging.info(f'EH:   PartitionId = {partition}')
     logging.info(f'EH:   SequenceNumber = {event.sequence_number}')
     logging.info(f'EH:   Offset = {event.offset}')
 
@@ -17,7 +19,7 @@ def main(event: func.EventHubEvent):
 
     blobContent = {
         "enqueuedAt": f'{event.enqueued_time}',
-        "partitionId": event.metadata['PartitionContext']['PartitionId'],
+        "partitionId": partition,
         "eventContent": message_body
         }
     blobName=f'{blobContent["partitionId"]}/{event.enqueued_time.year}/{event.enqueued_time.month}/{event.enqueued_time.day}/{event.enqueued_time.hour}_{event.sequence_number}_{event.offset}'

@@ -9,6 +9,6 @@
       "consumerGroup": "$Default",
       "cardinality": "one",
       "connection": "CloudComputingEventHubConnectionString"
-  }
+    }
   ]
 }
