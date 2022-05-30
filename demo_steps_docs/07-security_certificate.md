@@ -58,5 +58,6 @@ openssl x509 -in root.pem -noout -hash -issuer_hash
 
 ## Further reading:
 
-- [Illustrated X.509 Certificate](https://darutk.medium.com/illustrated-x-509-certificate-84aece2c5c2e)
+- [A complete overview of SSL/TLS and its cryptographic system](https://dev.to/techschoolguru/a-complete-overview-of-ssl-tls-and-its-cryptographic-system-36pd)
 - [Public Key Infrastructure](https://smallstep.com/blog/everything-pki/)
+- [Illustrated X.509 Certificate](https://darutk.medium.com/illustrated-x-509-certificate-84aece2c5c2e)

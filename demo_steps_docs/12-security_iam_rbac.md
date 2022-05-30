@@ -42,6 +42,8 @@ Kubernetes uses similar concepts but under slightly different names.
 
 Show all the following steps in minikube: `minikube start -n 2`
 
+NOTE: to use `podman` instead of `docker` as minikube driver, you must run sligtly different commands. The command could be similar to `minikube start --driver=podman --container-runtime=cri-o -n 2`. You could consider running rootless podman (minikube support for rootless is in beta and should be enabled separately `minikube config set rootless true`)
+
 1. Kubernetes could integrate with external Auth-providers (for example, AAD)
 
 2. `Identity` in Kubernetes: User (human), Service Account (application), Group (aggregation)

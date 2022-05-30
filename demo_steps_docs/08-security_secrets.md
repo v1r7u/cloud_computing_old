@@ -36,9 +36,13 @@ The goal: basic secrets-management operations.
     
     ![storage-account-sas: happy path](../files/06-12-security/08-storage-account-sas-03-happy-path.png)
 
-    Note, SAS token could be generated on container-level view too.
+    Note, SAS token could be generated on container or file level view too.
 
     ![storage-account-sas: container-level generation](../files/06-12-security/08-storage-account-sas-04-container-sas.png)
+
+    - rotate the access key, which was used to sign the token, then try to reload the picture after a few minutes (or open in incognito view)
+
+    ![storage-account-sas: failed auth after key regeneration](../files/06-12-security/08-storage-account-sas-05-regenerated-key.png)
 
 4. Controlling access to Azure Key Vault
 
